@@ -1,0 +1,2 @@
+lw x7, 50(x3)       # Load Word (I-type)
+sw x7, 50(x3)       # Store Word (S-type)
