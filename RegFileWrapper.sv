@@ -1,3 +1,4 @@
+// dummy reg file to test the UART Tx
 module RegFileWrapper (
     input  logic          clk,        
     input  logic          rst,
@@ -9,16 +10,16 @@ module RegFileWrapper (
 );
     
 //  assign LED = {3'b0, incrementer};
-//	 assign LED = registerFile[4][7: 0];
+//	assign LED = registerFile[4][7: 0];
     
     // State encoding
     typedef enum logic [2:0] {
         IDLE,
         OUTPUT_REG,
         OUTPUT_BYTE,
-		  SEND_BYTE,
-		  BYTE_SENT,
-		  REG_SENT
+	    SEND_BYTE,
+	    BYTE_SENT,
+	    REG_SENT
     } state_t;
     
     state_t current_state = IDLE, next_state;
@@ -120,23 +121,23 @@ module RegFileWrapper (
                         2'd2: dout <= current_reg_value[15:8];   // Send next byte
                         2'd3: dout <= current_reg_value[7:0];    // Send LSB
                     endcase
+//					byte_counter <= byte_counter + 1;  // Move to the next byte
+//                  if (byte_counter == 2'b11) begin
+////                      incrementer <= incrementer + 1;  // Increment register index after transmitting 4 bytes
+//					      //byte_counter <= 2'b00;
+//                  end
+//					else begin
 //						  byte_counter <= byte_counter + 1;  // Move to the next byte
-//                    if (byte_counter == 2'b11) begin
-////                        incrementer <= incrementer + 1;  // Increment register index after transmitting 4 bytes
-//								//byte_counter <= 2'b00;
-//                    end
-//						  else begin
-//						  byte_counter <= byte_counter + 1;  // Move to the next byte
-//						  end
+//			        end
                 end
-					 BYTE_SENT: begin
-						Ready_Byte <= 1'b0;
-						byte_counter <= byte_counter + 1;  // Move to the next byte
-					 end
-					 REG_SENT: begin
-						  Ready_Byte <= 1'b0;
+                BYTE_SENT: begin
+                    Ready_Byte <= 1'b0;
+                    byte_counter <= byte_counter + 1;  // Move to the next byte
+                end
+                REG_SENT: begin
+                    Ready_Byte <= 1'b0;
                     incrementer <= incrementer + 1;  // Increment register index after transmitting 4 bytes
-					 end
+                end
             endcase
         end
     end

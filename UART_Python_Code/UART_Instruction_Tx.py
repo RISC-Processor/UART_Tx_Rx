@@ -2,7 +2,8 @@ import serial
 import time
 
 # Configure the serial port
-SERIAL_PORT = 'COM3'  # Change to your correct serial port (e.g., 'COM3' on Windows, '/dev/ttyUSB0' on Linux)
+# SERIAL_PORT = 'COM3'  # Change to your correct serial port 
+SERIAL_PORT = '/dev/tty0'  # Change to your correct serial port 
 BAUD_RATE = 115200  # Adjust if needed
 
 def send_uart_data(serial_conn, data):
@@ -17,7 +18,7 @@ def read_and_transmit():
         print(f"Connected to {SERIAL_PORT}")
 
         # Read 32-bit instructions from the file
-        with open('riscv_instructions.txt', 'r') as file:
+        with open('riscv_binary.txt', 'r') as file:
             for line in file:
                 line = line.strip()
                 if not line:
