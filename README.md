@@ -16,4 +16,4 @@ Baudrate is set to 115200 which can be changed.
 
 **Python TX instructions       --> HDL Rx receive them   --> put them in dummy Imem.**
 
-**Dummy regFile send reg vals  --> HDL Tx to send them   --> Python receiver grab them.**
+**Dummy regFile send reg vals  --> HDL Tx send them      --> Python receiver grab them.**
